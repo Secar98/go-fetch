@@ -6,6 +6,7 @@
     const prefix = '/home'
     const routes = {
         '/body': BodyContainer,
+        '/body/*': BodyContainer,
         '/headers': HeadersContainer,
         '/query': QueryParamsContainer,
     }
