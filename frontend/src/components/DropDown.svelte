@@ -1,17 +1,32 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+    import { selectedMethod, HttpMethod, stringToHttpMethod } from '../store/methodStore';
+    import { get } from 'svelte/store';
     export let styles: string;
+    let currentMethod;
+    let methods = Object.values(HttpMethod);
 
-    let methods = ["GET", "POST", "OPTIONS"];
-    let selectedMethod = methods[0];
+    onMount(() => {
+        const unsubscribe = selectedMethod.subscribe((value) => {
+            currentMethod = value;
+        });
+
+        return () => {
+            unsubscribe();
+        }
+    });
 
     function handleClick(event) {
-        selectedMethod = (event.target as HTMLLIElement).innerText;
+        const value = (event.target as HTMLLIElement).innerText
+        selectedMethod.set(stringToHttpMethod(value));
     }
+
+    
 </script>
 
 <div class="dropdown">
     <div tabindex="0" role="button" class="btn w-full {styles}">
-        {selectedMethod}
+        {currentMethod}
     </div>
     <ul class="dropdown-content menu bg-base-100 rounded z-[1] w-32 p-2 shadow">
         {#each methods as method}
