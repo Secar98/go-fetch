@@ -12,6 +12,7 @@
 
 <Router
     routes={{
+        "/": Home,
         "/home": Home,
         "/home/*": Home,
         "/about": About,
