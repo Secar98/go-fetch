@@ -36,7 +36,7 @@
     }
 </script>
 
-<div class="p-4">
+<div>
     <textarea
         class="w-full h-48 p-2 border border-gray-300 rounded-md font-mono resize-none"
         placeholder="Enter JSON here..."

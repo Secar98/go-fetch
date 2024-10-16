@@ -1,1 +1,6 @@
-<h1>Headers</h1>
+<script>
+    import TableDataContainer from "./TableDataContainer.svelte";
+
+</script>
+
+<TableDataContainer />
