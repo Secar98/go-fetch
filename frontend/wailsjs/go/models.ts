@@ -28,6 +28,7 @@ export namespace main {
 	    StatusCode: number;
 	    Body: string;
 	    Headers: {[key: string]: string[]};
+	    Error: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new HttpResponse(source);
@@ -38,6 +39,7 @@ export namespace main {
 	        this.StatusCode = source["StatusCode"];
 	        this.Body = source["Body"];
 	        this.Headers = source["Headers"];
+	        this.Error = source["Error"];
 	    }
 	}
 

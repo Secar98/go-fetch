@@ -14,7 +14,6 @@ async function makeRequest(request: HttpRequestStore): Promise<main.HttpResponse
         QueryParameters: request.queryParameters,
         SelectedBodyType: BodyType[request.selectedBodyType]
     });
-    console.log(goReq);
     return SendRequest(goReq);
 }
 
@@ -23,9 +22,11 @@ export default async function sendRequest() {
     const request: HttpRequestStore = get(httpRequestStore);
 
     const resp = await makeRequest(request) as main.HttpResponse;
-    if (resp.StatusCode === 0 && resp.Body === '') {
-        console.error('Error:', resp);
-        return;
+    if (resp.Error !== "") {
+        return httpResponseStore.update(store => {
+            store.Error = resp.Error;
+            return store;
+        });
     }
 
     httpResponseStore.update(_ => {

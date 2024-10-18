@@ -20,12 +20,15 @@ type HttpResponse struct {
 	StatusCode int
 	Body       string
 	Headers    map[string][]string
+	Error      string
 }
 
-func (a *App) SendRequest(store *HttpRequest) (HttpResponse, string) {
+func (a *App) SendRequest(store *HttpRequest) HttpResponse {
 	req, err := http.NewRequest(store.Method, store.Url, nil)
 	if err != nil {
-		return HttpResponse{}, err.Error()
+		return HttpResponse{
+			Error: err.Error(),
+		}
 	}
 
 	for key, value := range store.Headers {
@@ -37,20 +40,23 @@ func (a *App) SendRequest(store *HttpRequest) (HttpResponse, string) {
 	}
 	resp, err := client.Do(req)
 	if err != nil {
-		return HttpResponse{}, err.Error()
+		return HttpResponse{
+			Error: err.Error(),
+		}
 	}
 
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return HttpResponse{}, err.Error()
+		return HttpResponse{
+			Error: err.Error(),
+		}
 	}
 
-	response := HttpResponse{
+	return HttpResponse{
 		StatusCode: resp.StatusCode,
 		Body:       string(body),
 		Headers:    resp.Header,
+		Error:      "",
 	}
-
-	return response, ""
 }
