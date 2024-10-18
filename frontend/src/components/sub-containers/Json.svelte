@@ -1,19 +1,19 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { BodyType, httpStore, HttpStore } from "../../stores/http-store";
+    import { BodyType, httpRequestStore, HttpRequestStore } from "../../stores/http-request-store";
     import { get } from "svelte/store";
-    let store: HttpStore = get(httpStore);
+    let store: HttpRequestStore = get(httpRequestStore);
 
     onMount(() => {
         store.selectedBodyType = BodyType.JSON
-        httpStore.set(store);
+        httpRequestStore.set(store);
     });
 
     let jsonInput: string = store.json;
     let parsedJson: object | null = null;
     let errorMessage: string = '';
 
-    $: httpStore.update(store => {
+    $: httpRequestStore.update(store => {
         store.json = jsonInput;
         return store;
     });

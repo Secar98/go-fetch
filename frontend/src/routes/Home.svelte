@@ -3,6 +3,14 @@
     import Container from "../components/Container.svelte";
     import RequestContainer from "../components/RequestContainer.svelte";
     import ResponseContainer from "../components/ResponseContainer.svelte";
+    import { httpRequestStore } from "../stores/http-request-store";
+    let input = '';
+
+    $: httpRequestStore.update(store => {
+        store.url = input;
+        return store;
+    });
+
 </script>
 
 <Container>
@@ -12,6 +20,7 @@
             type="text"
             placeholder="http://localhost:8080"
             class="input input-bordered input-primary col-span-4"
+            bind:value={input}
         />
         <button class="btn btn-success col-span-1">Send</button>
     </div>

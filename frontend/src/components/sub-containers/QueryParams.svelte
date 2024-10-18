@@ -1,10 +1,10 @@
 <script lang="ts">
     import Table from "./Table.svelte";
-    import { httpStore, KeyValue } from '../../stores/http-store';
+    import { httpRequestStore, KeyValue } from '../../stores/http-request-store';
     import { get } from "svelte/store";
-    let data: KeyValue[] = get(httpStore).queryParameters;
+    let data: KeyValue[] = get(httpRequestStore).queryParameters;
 
-    $: httpStore.update(store => {
+    $: httpRequestStore.update(store => {
         store.queryParameters = data;
         return store;
     });

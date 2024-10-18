@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-export class HttpStore {
+export class HttpRequestStore {
     url: string = "";
     method: string = "";
     headers: any = [];
@@ -8,6 +8,7 @@ export class HttpStore {
     queryParameters: any = [];
     selectedBodyType: BodyType = BodyType.NONE;
 }
+
 
 export enum BodyType {
     FORM_DATA = "form-data",
@@ -20,4 +21,4 @@ export class KeyValue {
     value: string;
 }
 
-export const httpStore = writable(new HttpStore());
+export const httpRequestStore = writable(new HttpRequestStore());

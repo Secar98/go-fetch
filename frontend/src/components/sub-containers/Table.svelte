@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { KeyValue } from "../../stores/http-store";
+    import { KeyValue } from "../../stores/http-request-store";
     export let data: KeyValue[] = [];
 
     function addRow() {

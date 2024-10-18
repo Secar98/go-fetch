@@ -1,17 +1,17 @@
 <script lang="ts">
     import Table from "./Table.svelte";
-    import { BodyType, HttpStore, httpStore } from '../../stores/http-store';
+    import { BodyType, HttpRequestStore, httpRequestStore } from '../../stores/http-request-store';
     import { get } from "svelte/store";
     import { onMount } from "svelte";
-    let store: HttpStore = get(httpStore);
+    let store: HttpRequestStore = get(httpRequestStore);
     let data = store.formData;
 
     onMount(() => {
         store.selectedBodyType = BodyType.FORM_DATA
-        httpStore.set(store);
+        httpRequestStore.set(store);
     });
 
-    $: httpStore.update(store => {
+    $: httpRequestStore.update(store => {
         store.formData = data;
         return store;
     });
