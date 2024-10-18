@@ -1,21 +1,34 @@
 <script lang="ts">
-    import { writable } from 'svelte/store';
+    import { onMount } from "svelte";
+    import { BodyType, httpStore, HttpStore } from "../../stores/http-store";
+    import { get } from "svelte/store";
+    let store: HttpStore = get(httpStore);
 
-    let jsonInput = writable<string>('');
-    let parsedJson = writable<object | null>(null);
-    let errorMessage = writable<string>('');
+    onMount(() => {
+        store.selectedBodyType = BodyType.JSON
+        httpStore.set(store);
+    });
+
+    let jsonInput: string = store.json;
+    let parsedJson: object | null = null;
+    let errorMessage: string = '';
+
+    $: httpStore.update(store => {
+        store.json = jsonInput;
+        return store;
+    });
 
     function handleJsonInput(event: Event) {
         const input = (event.target as HTMLTextAreaElement).value;
-        jsonInput.set(input);
+        jsonInput = input;
 
         try {
             const parsed = JSON.parse(input);
-            parsedJson.set(parsed);
-            errorMessage.set('');
+            parsedJson = parsed;
+            errorMessage = '';
         } catch (error) {
-            parsedJson.set(null);
-            errorMessage.set('Invalid JSON');
+            parsedJson = null;
+            errorMessage = 'Invalid JSON';
         }
     }
 
@@ -26,12 +39,9 @@
             const start = textarea.selectionStart;
             const end = textarea.selectionEnd;
 
-            jsonInput.update(value => {
-                const newValue = value.substring(0, start) + '\t' + value.substring(end);
-                textarea.value = newValue;
-                textarea.selectionStart = textarea.selectionEnd = start + 1;
-                return newValue;
-            });
+            jsonInput = jsonInput.substring(0, start) + '\t' + jsonInput.substring(end);
+            textarea.value = jsonInput;
+            textarea.selectionStart = textarea.selectionEnd = start + 1;
         }
     }
 </script>
@@ -40,16 +50,17 @@
     <textarea
         class="w-full h-48 p-2 border border-gray-300 rounded-md font-mono resize-none"
         placeholder="Enter JSON here..."
+        bind:value={jsonInput}
         on:input={handleJsonInput}
         on:keydown={handleKeydown}
     ></textarea>
 
-    {#if $errorMessage}
-        <p class="text-red-500 mt-4 text-lg font-semibold">{$errorMessage}</p>
+    {#if errorMessage}
+        <p class="text-red-500 mt-4 text-lg font-semibold">{errorMessage}</p>
     {/if}
 
-    {#if $parsedJson}
+    {#if parsedJson}
         <h2 class="text-green-500 mt-4 text-lg font-semibold">Valid JSON:</h2>
-        <pre class="bg-gray-100 p-2 rounded-md mt-2">{JSON.stringify($parsedJson, null, 2)}</pre>
+        <pre class="bg-gray-100 p-2 rounded-md mt-2">{JSON.stringify(parsedJson, null, 2)}</pre>
     {/if}
 </div>
