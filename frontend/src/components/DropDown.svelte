@@ -1,25 +1,20 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { selectedMethod, HttpMethod, stringToHttpMethod } from '../stores/method-store';
+    import { HttpMethod, httpRequestStore, stringToHttpMethod } from '../stores/http-request-store';
+    import { get } from 'svelte/store';
     export let styles: string;
-    let currentMethod;
+    const store = get(httpRequestStore)
+    let currentMethod = store.method;
     let methods = Object.values(HttpMethod);
-
-    onMount(() => {
-        const unsubscribe = selectedMethod.subscribe((value) => {
-            currentMethod = value;
-        });
-
-        return () => {
-            unsubscribe();
-        }
-    });
 
     function handleClick(event) {
         const value = (event.target as HTMLLIElement).innerText
-        selectedMethod.set(stringToHttpMethod(value));
+        httpRequestStore.update(store => {
+            store.method = stringToHttpMethod(value);
+            console.log(store);
+            return store;
+        });
+        currentMethod = HttpMethod[value];
     }
-
     
 </script>
 
