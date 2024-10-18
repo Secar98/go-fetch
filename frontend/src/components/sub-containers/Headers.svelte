@@ -5,7 +5,6 @@
     let data: Map<string,string> = get(httpRequestStore).headers;
 
     $: httpRequestStore.update(store => {
-        console.log(data);
         store.headers = data;
         return store;
     });
