@@ -10,7 +10,6 @@
         const value = (event.target as HTMLLIElement).innerText
         httpRequestStore.update(store => {
             store.method = stringToHttpMethod(value);
-            console.log(store);
             return store;
         });
         currentMethod = HttpMethod[value];

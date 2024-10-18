@@ -4,6 +4,7 @@
     import RequestContainer from "../components/RequestContainer.svelte";
     import ResponseContainer from "../components/ResponseContainer.svelte";
     import { httpRequestStore } from "../stores/http-request-store";
+    import sendRequest from "../api/send-request";
     let input = '';
 
     $: httpRequestStore.update(store => {
@@ -22,7 +23,7 @@
             class="input input-bordered input-primary col-span-4"
             bind:value={input}
         />
-        <button class="btn btn-success col-span-1">Send</button>
+        <button on:click={sendRequest} class="btn btn-success col-span-1">Send</button>
     </div>
     <div class="grid grid-cols-2 mt-6 gap-2 rounded">
         <RequestContainer />
