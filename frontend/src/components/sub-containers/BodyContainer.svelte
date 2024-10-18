@@ -1,7 +1,6 @@
 <script lang="ts">
     import Router, { link } from 'svelte-spa-router'
     import JsonContainer from "./Json.svelte";
-    import Table from './Table.svelte';
     import FormData from './FormData.svelte';
 
     const prefix = '/home/body'
