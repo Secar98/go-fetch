@@ -1,21 +1,30 @@
 <script lang="ts">
-    import { KeyValue } from "../../stores/http-request-store";
-    export let data: KeyValue[] = [];
+    export let data: Map<string, string>;
 
     function addRow() {
-        data = [...data, { key: '', value: '' }];
+        data.set('', '');
+        data = new Map(data)
     }
 
-    function removeRow(index: number) {
-        data = data.filter((_, idx) => idx !== index);
+    function removeRow(key: string) {
+        data.delete(key);
+        data = new Map(data);
     }
 
-    function updateKey(index: number, input: HTMLInputElement) {
-        data[index].key = input.value;
+    function updateKey(oldKey: string, newKey: string) {
+        if (newKey !== oldKey && !data.has(newKey)) {
+            const value = data.get(oldKey);
+            if (value !== undefined) {
+                data.delete(oldKey);
+                data.set(newKey, value);
+                data = new Map(data);
+            }
+        }
     }
 
-    function updateValue(index: number, input: HTMLInputElement) {
-        data[index].value = input.value;
+    function updateValue(key: string, value: string) {
+        data.set(key, value);
+        data = new Map(data);
     }
 </script>
 
@@ -29,26 +38,26 @@
             </tr>
         </thead>
         <tbody>
-            {#each data as { key, value }, index}
+            {#each Array.from(data.entries()) as [key, value]}
                 <tr>
                     <td class="border border-gray-300">
                         <input
                             type="text"
                             class="input input-xs w-full border-none"
-                            bind:value={key}
-                            on:input={(e) => updateKey(index, e.currentTarget)}
+                            value={key}
+                            on:blur={(e) => updateKey(key, e.currentTarget.value)}
                         />
                     </td>
                     <td class="border border-gray-300">
                         <input
                             type="text"
                             class="input input-xs w-full border-none"
-                            bind:value={value}
-                            on:input={(e) => updateValue(index, e.currentTarget)}
+                            value={value}
+                            on:blur={(e) => updateValue(key, e.currentTarget.value)}
                         />
                     </td>
                     <td class="border border-gray-300">
-                        <button class="btn btn-xs btn-error rounded-md" on:click={() => removeRow(index)}>Remove</button>
+                        <button class="btn btn-xs btn-error rounded-md" on:click={() => removeRow(key)}>Remove</button>
                     </td>
                 </tr>
             {/each}
