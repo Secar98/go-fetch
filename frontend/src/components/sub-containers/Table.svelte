@@ -1,25 +1,21 @@
 <script lang="ts">
-    export let formData: TableData[] = [];
-
-    interface TableData {
-        key: string;
-        value: string;
-    }
+    import { KeyValue } from "../../stores/http-store";
+    export let data: KeyValue[] = [];
 
     function addRow() {
-        formData = [...formData, { key: '', value: '' }];
+        data = [...data, { key: '', value: '' }];
     }
 
     function removeRow(index: number) {
-        formData = formData.filter((_, idx) => idx !== index);
+        data = data.filter((_, idx) => idx !== index);
     }
 
     function updateKey(index: number, input: HTMLInputElement) {
-        formData[index].key = input.value;
+        data[index].key = input.value;
     }
 
     function updateValue(index: number, input: HTMLInputElement) {
-        formData[index].value = input.value;
+        data[index].value = input.value;
     }
 </script>
 
@@ -33,7 +29,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each formData as { key, value }, index}
+            {#each data as { key, value }, index}
                 <tr>
                     <td class="border border-gray-300">
                         <input

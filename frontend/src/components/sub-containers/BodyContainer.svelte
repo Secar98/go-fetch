@@ -2,11 +2,12 @@
     import Router, { link } from 'svelte-spa-router'
     import JsonContainer from "./Json.svelte";
     import Table from './Table.svelte';
+    import FormData from './FormData.svelte';
 
     const prefix = '/home/body'
     const routes = {
         '/json': JsonContainer,
-        '/form-data': Table,
+        '/form-data': FormData,
     }
 </script>
 
