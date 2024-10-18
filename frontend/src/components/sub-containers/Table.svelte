@@ -48,11 +48,11 @@
                         />
                     </td>
                     <td class="border border-gray-300">
-                        <button class="btn btn-xs rounded-md" on:click={() => removeRow(index)}>Remove</button>
+                        <button class="btn btn-xs btn-error rounded-md" on:click={() => removeRow(index)}>Remove</button>
                     </td>
                 </tr>
             {/each}
         </tbody>
     </table>
-    <button class="btn btn-sm btn-primary text-white rounded-md m-2" on:click={addRow}>Add Row</button>
+    <button class="btn btn-xs btn-primary text-white rounded-md m-2" on:click={addRow}>Add Row</button>
 </div>
