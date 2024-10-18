@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { selectedMethod, HttpMethod, stringToHttpMethod } from '../store/methodStore';
-    import { get } from 'svelte/store';
+    import { selectedMethod, HttpMethod, stringToHttpMethod } from '../stores/method-store';
     export let styles: string;
     let currentMethod;
     let methods = Object.values(HttpMethod);
