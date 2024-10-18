@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let formData: FormDataEntry[] = [{ key: '', value: '' }];
+    export let formData: FormDataEntry[] = [];
 
     interface FormDataEntry {
         key: string;
@@ -24,7 +24,7 @@
 </script>
 
 <div class="overflow-x-auto border rounded-md">
-    <table class="table">
+    <table class="table table-sm">
         <thead>
             <tr>
                 <th class="border border-gray-300 rounded-md">Key</th>
@@ -38,7 +38,7 @@
                     <td class="border border-gray-300">
                         <input
                             type="text"
-                            class="input w-full border-none"
+                            class="input input-xs w-full border-none"
                             bind:value={key}
                             on:input={(e) => updateKey(index, e.currentTarget)}
                         />
@@ -46,17 +46,17 @@
                     <td class="border border-gray-300">
                         <input
                             type="text"
-                            class="input w-full border-none"
+                            class="input input-xs w-full border-none"
                             bind:value={value}
                             on:input={(e) => updateValue(index, e.currentTarget)}
                         />
                     </td>
                     <td class="border border-gray-300">
-                        <button class="btn rounded-md" on:click={() => removeRow(index)}>Remove</button>
+                        <button class="btn btn-xs rounded-md" on:click={() => removeRow(index)}>Remove</button>
                     </td>
                 </tr>
             {/each}
         </tbody>
     </table>
-    <button class="btn btn-primary text-white rounded-md m-2" on:click={addRow}>Add Row</button>
+    <button class="btn btn-sm btn-primary text-white rounded-md m-2" on:click={addRow}>Add Row</button>
 </div>

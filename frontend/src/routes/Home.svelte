@@ -1,7 +1,7 @@
 <script>
     import DropDown from "../components/DropDown.svelte";
     import Container from "../components/Container.svelte";
-    import RequestContainer from "../components/request-container/RequestContainer.svelte";
+    import RequestContainer from "../components/RequestContainer.svelte";
     import ResponseContainer from "../components/ResponseContainer.svelte";
 </script>
 

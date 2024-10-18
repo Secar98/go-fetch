@@ -1,7 +1,7 @@
 <script>
     import Router, { link } from 'svelte-spa-router'
     import BodyContainer from './sub-containers/BodyContainer.svelte';
-    import HeadersContainer from './sub-containers//HeadersContainer.svelte';
+    import HeadersContainer from './sub-containers/HeadersContainer.svelte';
     import QueryParamsContainer from './sub-containers/QueryParamsContainer.svelte';
     const prefix = '/home'
     const routes = {
