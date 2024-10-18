@@ -1,14 +1,14 @@
 <script>
     import Router, { link } from 'svelte-spa-router'
-    import BodyContainer from './sub-containers/BodyContainer.svelte';
-    import HeadersContainer from './sub-containers/HeadersContainer.svelte';
-    import QueryParamsContainer from './sub-containers/QueryParamsContainer.svelte';
+    import BodyContainer from './sub-containers/BodyContainer.svelte'
+    import Headers from './sub-containers/Headers.svelte';
+    import QueryParams from './sub-containers/QueryParams.svelte';
     const prefix = '/home'
     const routes = {
         '/body': BodyContainer,
         '/body/*': BodyContainer,
-        '/headers': HeadersContainer,
-        '/query': QueryParamsContainer,
+        '/headers': Headers,
+        '/query': QueryParams,
     }
 </script>
 <div>

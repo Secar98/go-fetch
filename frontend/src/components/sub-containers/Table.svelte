@@ -1,7 +1,7 @@
 <script lang="ts">
-    export let formData: FormDataEntry[] = [];
+    export let formData: TableData[] = [];
 
-    interface FormDataEntry {
+    interface TableData {
         key: string;
         value: string;
     }
