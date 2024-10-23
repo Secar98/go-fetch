@@ -12,7 +12,7 @@ async function makeRequest(request: HttpRequestStore): Promise<main.HttpResponse
         FormData: request.formData,
         Json: request.json,
         QueryParameters: request.queryParameters,
-        SelectedBodyType: BodyType[request.selectedBodyType]
+        SelectedBodyType: request.selectedBodyType.toString()
     });
     return SendRequest(goReq);
 }

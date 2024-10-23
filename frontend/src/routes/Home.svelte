@@ -5,9 +5,10 @@
     import  ResponseContainer from "../components/ResponseContainer.svelte";
     import { httpRequestStore } from "../stores/http-request-store";
     import sendRequest from "../api/send-request";
-    let input = '';
+    import { get } from "svelte/store";
+    let input = get(httpRequestStore).url;
 
-    $: httpRequestStore.update(store => {
+    $: input, httpRequestStore.update(store => {
         store.url = input;
         return store;
     });
