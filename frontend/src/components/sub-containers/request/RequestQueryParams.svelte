@@ -11,4 +11,5 @@
     
 </script>
 
+<p class="badge badge-ghost mb-4">QueryParams</p>
 <Table bind:data />

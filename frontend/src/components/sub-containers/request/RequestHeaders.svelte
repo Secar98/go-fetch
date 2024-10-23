@@ -11,4 +11,5 @@
     
 </script>
 
+<p class="badge badge-ghost mb-4">Headers</p>
 <Table bind:data />
