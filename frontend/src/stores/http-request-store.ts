@@ -12,6 +12,7 @@ export class HttpRequestStore {
 export enum BodyType {
     FORM_DATA = "form-data",
     JSON = "json",
+    URL_ENCODED = "url-encoded",
     NONE = "none"
 }
 

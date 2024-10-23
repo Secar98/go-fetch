@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"net/url"
 	"strings"
@@ -66,21 +68,39 @@ func createRequest(store *HttpRequest) (*http.Request, error) {
 
 	switch store.SelectedBodyType {
 	case "form-data":
-		form := url.Values{}
+		var b bytes.Buffer
+		w := multipart.NewWriter(&b)
 		for key, value := range store.FormData {
-			form.Add(key, value)
+			fw, err := w.CreateFormField(key)
+			if err != nil {
+				return nil, err
+			}
+			if _, err = fw.Write([]byte(value)); err != nil {
+				return nil, err
+			}
 		}
-		req, err = http.NewRequest(store.Method, store.Url, strings.NewReader(form.Encode()))
+		w.Close()
+		req, err = http.NewRequest(store.Method, store.Url, &b)
 		if err != nil {
 			return nil, err
 		}
-		req.Header.Add("Content-Type", "multipart/form-data")
+		req.Header.Set("Content-Type", w.FormDataContentType())
 	case "json":
 		req, err = http.NewRequest(store.Method, store.Url, strings.NewReader(store.Json))
 		if err != nil {
 			return nil, err
 		}
 		req.Header.Add("Content-Type", "application/json")
+	case "url-encoded":
+		data := url.Values{}
+		for key, value := range store.FormData {
+			data.Set(key, value)
+		}
+		req, err = http.NewRequest(store.Method, store.Url, strings.NewReader(data.Encode()))
+		if err != nil {
+			return nil, err
+		}
+		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	default:
 		req, err = http.NewRequest(store.Method, store.Url, nil)
 		if err != nil {

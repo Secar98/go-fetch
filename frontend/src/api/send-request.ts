@@ -8,10 +8,10 @@ async function makeRequest(request: HttpRequestStore): Promise<main.HttpResponse
     const goReq = main.HttpRequest.createFrom({
         Url: request.url,
         Method: request.method,
-        Headers: request.headers,
-        FormData: request.formData,
+        Headers: Object.fromEntries(request.headers.entries()) as { [key: string]: string },
+        FormData: Object.fromEntries(request.formData.entries()) as { [key: string]: string },
         Json: request.json,
-        QueryParameters: request.queryParameters,
+        QueryParameters: Object.fromEntries(request.queryParameters.entries()) as { [key: string]: string },
         SelectedBodyType: request.selectedBodyType.toString()
     });
     return SendRequest(goReq);
