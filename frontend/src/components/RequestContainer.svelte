@@ -1,25 +1,33 @@
 <script>
-    import Router, { link } from 'svelte-spa-router'
-    import BodyContainer from './sub-containers/BodyContainer.svelte'
+    import BodyContainer from './sub-containers/BodyContainer.svelte';
     import Headers from './sub-containers/request/RequestHeaders.svelte';
     import QueryParams from './sub-containers/request/RequestQueryParams.svelte';
-    const prefix = '/home'
-    const routes = {
-        '/request-body': BodyContainer,
-        '/request-body/*': BodyContainer,
-        '/request-headers': Headers,
-        '/request-query': QueryParams,
+
+    let currentSection = 'body';
+
+    function renderSection(section) {
+        switch (section) {
+            case 'body':
+                return BodyContainer;
+            case 'headers':
+                return Headers;
+            case 'params':
+                return QueryParams;
+            default:
+                return null;
+        }
     }
 </script>
+
 <div>
     <h1 class="text-xl mb-4">Request</h1>
     <div class="grid grid-flow-col justify-start gap-2 mb-4">
-        <a href="/home/request-body" use:link class="btn btn-sm">Body</a>
-        <a href="/home/request-headers" use:link class="btn btn-sm">Headers</a>
-        <a href="/home/request-query" use:link class="btn btn-sm">Params</a>
+        <button on:click={() => currentSection = 'body'} class="btn btn-sm">Body</button>
+        <button on:click={() => currentSection = 'headers'} class="btn btn-sm">Headers</button>
+        <button on:click={() => currentSection = 'params'} class="btn btn-sm">Params</button>
     </div>
     
-    <Router {routes} {prefix} />
+    {#if renderSection(currentSection)}
+        <svelte:component this={renderSection(currentSection)} />
+    {/if}
 </div>
-
-

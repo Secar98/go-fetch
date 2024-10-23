@@ -1,20 +1,27 @@
-<script lang="ts">
-    import Router, { link } from 'svelte-spa-router'
-    import JsonContainer from "./request/RequestJson.svelte";
-    import FormData from './request/RequestFormData.svelte';
+<script>
+    import RequestJson from './request/RequestJson.svelte';
+    import RequestFormData from './request/RequestFormData.svelte';
+    let showSection = 'json';
 
-    const prefix = '/home/request-body'
-    const routes = {
-        '/json': JsonContainer,
-        '/form-data': FormData,
+    function renderSection(section) {
+        switch (section) {
+            case 'json':
+                return RequestJson;
+            case 'formdata':
+                return RequestFormData;
+            default:
+                return null;
+        }
     }
 </script>
 
 <div>
     <div class="grid grid-flow-col justify-start gap-2 mb-4">
-        <a href="/home/request-body/json" use:link class="btn btn-xs">Json</a>
-        <a href="/home/request-body/form-data" use:link class="btn btn-xs">Form Data</a>
+        <button class="btn btn-xs" on:click={() => showSection = 'json'}>Json</button>
+        <button class="btn btn-xs" on:click={() => showSection = 'formdata'}>Formdata</button>
     </div>
     
-    <Router {routes} {prefix} />
+    {#if renderSection(showSection)}
+        <svelte:component this={renderSection(showSection)} />
+    {/if}
 </div>
