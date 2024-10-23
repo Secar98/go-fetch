@@ -1,5 +1,5 @@
 <script>
-    import BodyContainer from './sub-containers/BodyContainer.svelte';
+    import BodyContainer from './sub-containers/request/BodyContainer.svelte';
     import Headers from './sub-containers/request/RequestHeaders.svelte';
     import QueryParams from './sub-containers/request/RequestQueryParams.svelte';
 

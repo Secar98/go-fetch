@@ -1,6 +1,6 @@
 <script>
-    import RequestJson from './request/RequestJson.svelte';
-    import RequestFormData from './request/RequestFormData.svelte';
+    import RequestJson from './RequestJson.svelte';
+    import RequestFormData from './RequestFormData.svelte';
     let showSection = 'json';
 
     function renderSection(section) {

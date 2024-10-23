@@ -1,6 +1,6 @@
 <script lang="ts">
     import { httpResponseStore } from "../../../stores/http-response-store";
-    import HeadersTable from "../HeadersTable.svelte";
+    import HeadersTable from "./HeadersTable.svelte";
     const headers: { key: string, value: string }[] = [];
     $: response = $httpResponseStore;
 
