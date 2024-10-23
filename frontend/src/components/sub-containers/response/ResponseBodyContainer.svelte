@@ -3,8 +3,18 @@
     $: response = $httpResponseStore;
 
     let statusCodeStyle: string;
+    let json;
+
 
     $: {
+        try {
+            response.Body = JSON.parse(response.Body);
+            response.Body = JSON.stringify(response.Body, null, 2);
+        } catch (error) {
+            json = response.Body;
+        }
+
+
         if (response.StatusCode != undefined) {
             statusCodeStyle = response.StatusCode >= 200 && response.StatusCode < 400
                 ? "badge-success"

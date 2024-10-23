@@ -12,7 +12,6 @@
                     value: value.join(", ") 
                 }
             }).forEach(header => {
-                console.log(header);
                 headers.push(header);
             });
     }

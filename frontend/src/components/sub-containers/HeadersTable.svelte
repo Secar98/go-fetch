@@ -2,7 +2,7 @@
     export let headers: { key: string; value: string }[] = [];
 </script>
 
-<p class="badge badge-primary mb-4">Headers</p>
+<p class="badge badge-ghost mb-4">Headers</p>
 <div class="overflow-x-auto border rounded-md" style="height: 400px; overflow-y: auto;">
     <table class="table table-sm">
         <thead>
