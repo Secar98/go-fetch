@@ -49,7 +49,7 @@
 <div>
     <textarea
         class="w-full p-2 border border-gray-300 rounded-md font-mono resize-none"
-        style="min-height: 400px; overflow-y: auto;"
+        style="height: 400px; overflow-y: auto;"
         placeholder="Enter JSON here..."
         bind:value={jsonInput}
         on:input={handleJsonInput}

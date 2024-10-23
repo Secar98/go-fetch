@@ -22,7 +22,7 @@
     <div class="mt-4">
         <textarea
             class="w-full p-2 border border-gray-300 rounded-md font-mono resize-none"
-            style="min-height: 400px; overflow-y: auto;"
+            style="height: 400px; overflow-y: auto;"
             disabled
             >{response.Body ?? "No Body"}</textarea
         >

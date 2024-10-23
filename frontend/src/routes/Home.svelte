@@ -12,6 +12,12 @@
         return store;
     });
 
+    function onEnter(event) {
+        if (event.key === 'Enter') {
+            sendRequest();
+        }
+    }
+
 </script>
 
 <Container>
@@ -22,6 +28,7 @@
             placeholder="http://localhost:8080"
             class="input input-bordered input-primary col-span-4"
             bind:value={input}
+            on:keydown={onEnter}
         />
         <button on:click={sendRequest} class="btn btn-success col-span-1">Send</button>
     </div>
