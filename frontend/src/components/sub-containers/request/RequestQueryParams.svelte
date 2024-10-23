@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Table from "./Table.svelte";
-    import { httpRequestStore } from '../../stores/http-request-store';
+    import Table from "../Table.svelte";
+    import { httpRequestStore } from '../../../stores/http-request-store';
     import { get } from "svelte/store";
     let data: Map<string,string> = get(httpRequestStore).queryParameters;
 

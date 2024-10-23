@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Table from "./Table.svelte";
-    import { BodyType, HttpRequestStore, httpRequestStore } from '../../stores/http-request-store';
+    import Table from "../Table.svelte";
+    import { BodyType, HttpRequestStore, httpRequestStore } from '../../../stores/http-request-store';
     import { get } from "svelte/store";
     import { onMount } from "svelte";
     let store: HttpRequestStore = get(httpRequestStore);

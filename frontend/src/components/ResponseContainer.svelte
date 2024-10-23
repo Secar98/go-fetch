@@ -1,37 +1,22 @@
-<script lang="ts">
-    import { httpResponseStore } from "../stores/http-response-store";
-    import HeadersTable from "./sub-containers/HeadersTable.svelte";
-    const headers: { key: string, value: string }[] = [];
-    $: response = $httpResponseStore;
-    $: {
-        response,
-        Object.entries(response.Headers ?? {}).map(([key, value]) => { 
-                return {
-                    key,
-                    value: value.join(", ") 
-                }
-            }).forEach(header => {
-                console.log(header);
-                headers.push(header);
-            });
+<script>
+    import Router, { link } from 'svelte-spa-router'
+    import ResponseBodyContainer from './sub-containers/response/ResponseBodyContainer.svelte'
+    import ResponseHeaders from './sub-containers/response/ResponseHeaders.svelte';
+    const prefix = '/home'
+    const routes = {
+        '/response-body': ResponseBodyContainer,
+        '/response-body/*': ResponseBodyContainer,
+        '/response-headers': ResponseHeaders,
     }
 </script>
+<div>
+    <h1 class="text-xl mb-4">Response</h1>
+    <div class="grid grid-flow-col justify-start gap-2 mb-4">
+        <a href="/home/response-body" use:link class="btn btn-sm">Body</a>
+        <a href="/home/response-headers" use:link class="btn btn-sm">Headers</a>
+    </div>
+    
+    <Router {routes} {prefix} />
+</div>
 
-<main>
-    <h1 class="text-xl mb-4">Request</h1>
-    <div>
-        {#if response.Error != undefined}
-            <p class="badge badge-error">Error: {response.Error}</p>
-        {/if}
-        {#if response.StatusCode != undefined}
-            <p class="badge badge-primary">StatusCode: {response.StatusCode}</p>
-        {/if}
-       <HeadersTable {headers} />
-    </div>
-    <div class="">
-        <textarea
-            class="w-full h-full p-2 border border-gray-300 rounded-md font-mono resize-none"
-            >{response.Body ?? "No Body"}</textarea
-        >
-    </div>
-</main>
+
