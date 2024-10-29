@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -72,10 +71,12 @@ func createRequest(store *HttpRequest) (*http.Request, error) {
 		var b bytes.Buffer
 		w := multipart.NewWriter(&b)
 		for key, value := range store.FormData {
-			fmt.Println(key, value)
 			w.WriteField(key, value)
 		}
-		w.Close()
+		err := w.Close()
+		if err != nil {
+			return nil, err
+		}
 		req, err = http.NewRequest(store.Method, store.Url, &b)
 		if err != nil {
 			return nil, err
