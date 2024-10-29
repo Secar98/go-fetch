@@ -1,6 +1,5 @@
 <script lang="ts">
     import { httpResponseStore } from "../../../stores/http-response-store";
-    import { onMount } from 'svelte';
 
     let response;
     let statusCodeStyle: string;
@@ -34,11 +33,10 @@
         <p class="badge {statusCodeStyle}">StatusCode: {response.StatusCode ?? ' '}</p>
     </div>
     <div class="mt-4 relative">
-        <textarea
+        <pre
             class="w-full p-2 border border-gray-300 rounded-md font-mono resize-none"
             style="height: 400px; overflow-y: auto;"
-            disabled
-        >{response.Body ?? "No Body"}</textarea>
+        >{response.Body ?? "No Body"}</pre>
         <button
             class="absolute top-2 right-2 btn btn-xs btn-primary text-white"
             on:click={copyToClipboard}
