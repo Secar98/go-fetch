@@ -1,4 +1,4 @@
-import { BodyType, httpRequestStore, HttpRequestStore } from "../stores/http-request-store";
+import { httpRequestStore, HttpRequestStore } from "../stores/http-request-store";
 import { httpResponseStore } from "../stores/http-response-store";
 import { get } from "svelte/store";
 import { SendRequest } from "../../wailsjs/go/main/App.js";

@@ -2,7 +2,7 @@
     import { link } from 'svelte-spa-router';
 </script>
 
-<nav class="bg-gray-800 p-6 h-screen">
+<nav class="bg-gray-800 p-6 min-h-full">
     <div class="container mx-auto flex flex-col justify-between items-start">
         <div class="text-white text-2xl font-bold mb-6">GO-Client</div>
         <div class="flex flex-col space-y-7 text-xl">

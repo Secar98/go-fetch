@@ -1,7 +1,7 @@
 <script lang="ts">
     import { httpResponseStore } from "../../../stores/http-response-store";
     import HeadersTable from "./HeadersTable.svelte";
-    const headers: { key: string, value: string }[] = [];
+    let headers: { key: string, value: string }[] = [];
     $: response = $httpResponseStore;
 
     $: {
@@ -11,9 +11,10 @@
                     key,
                     value: value.join(", ") 
                 }
-            }).forEach(header => {
+            }).map(header => {
                 headers.push(header);
             });
+        headers = headers;
     }
 
 </script>
